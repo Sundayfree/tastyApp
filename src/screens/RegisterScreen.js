@@ -14,13 +14,45 @@ import {
   Thumbnail,
   CheckBox
 } from 'native-base';
+import ImagePicker from 'react-native-image-picker';
 class RegisterScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isVisible: false,
-      isCheck: false
+      isCheck: false,
+      avator: null,
+      email: '',
+      username: '',
+      password: '',
+      repassword: ''
     };
+    this.handleImagePicker = this.handleImagePicker.bind(this);
+  }
+  handleImagePicker() {
+    const options = {
+      title: null,
+      cancelButtonTitle: 'Cancel',
+      takePhotoButtonTitle: 'Open Camera',
+      chooseFromLibraryButtonTitle: 'Choose From Photos',
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      noData: true,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+
+    ImagePicker.showImagePicker(options, response => {
+      if (response.uri) {
+        let source = { uri: response.uri };
+
+        this.setState({
+          avator: source
+        });
+      }
+    });
   }
   render() {
     return (
@@ -41,11 +73,17 @@ class RegisterScreen extends Component {
                 borderColor: '#ccc'
               }}
             >
-              <Label style={{ color: '#777' }}>UserName</Label>
-              <Input />
+              <Label style={{ color: '#777' }}>Username</Label>
+              <Input onChangeText={text => this.setState({ username: text })} />
             </Item>
             <View>
-              <Thumbnail large source={require('../../assets/plus.png')} />
+              <Button transparent light onPress={this.handleImagePicker}>
+                {this.state.avator === null ? (
+                  <Thumbnail large source={require('../../assets/plus.png')} />
+                ) : (
+                  <Thumbnail large source={this.state.avator} />
+                )}
+              </Button>
             </View>
           </View>
           <View style={{ marginTop: '2%' }}>
@@ -57,7 +95,7 @@ class RegisterScreen extends Component {
               }}
             >
               <Label style={{ color: '#777' }}>Email</Label>
-              <Input />
+              <Input onChangeText={text => this.setState({ email: text })} />
             </Item>
           </View>
           <View style={{ marginTop: '3%' }}>
@@ -69,7 +107,10 @@ class RegisterScreen extends Component {
               }}
             >
               <Label style={{ color: '#777' }}>Password</Label>
-              <Input secureTextEntry={true} />
+              <Input
+                secureTextEntry={true}
+                onChangeText={text => this.setState({ password: text })}
+              />
             </Item>
           </View>
           <View style={{ marginTop: '3%' }}>
@@ -81,7 +122,10 @@ class RegisterScreen extends Component {
               }}
             >
               <Label style={{ color: '#777' }}>Repassword</Label>
-              <Input secureTextEntry={true} />
+              <Input
+                secureTextEntry={true}
+                onChangeText={text => this.setState({ repassword: text })}
+              />
             </Item>
           </View>
           <View

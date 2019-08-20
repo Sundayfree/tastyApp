@@ -11,7 +11,15 @@ import {
   View,
   Button
 } from 'native-base';
+
 class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: false
+    };
+  }
+
   render() {
     return (
       <Container style={{ alignItems: 'center' }}>
@@ -47,13 +55,18 @@ class LoginScreen extends Component {
                   type="MaterialCommunityIcons"
                   style={{ fontSize: 25, color: '#777' }}
                 />
-                <Input placeholder="Email" style={{ color: '#777' }} />
+                <Input
+                  placeholder="Email"
+                  style={{ color: '#777' }}
+                  onChangeText={text => this.setState({ email: text })}
+                />
               </View>
             </Item>
           </View>
           <View
             style={{
               marginTop: '5%',
+              borderColor: '#ccc',
               alignItems: 'center'
             }}
           >
@@ -80,6 +93,7 @@ class LoginScreen extends Component {
                   placeholder="Password"
                   secureTextEntry={true}
                   style={{ color: '#777' }}
+                  onChangeText={text => this.setState({ password: text })}
                 />
               </View>
             </Item>
@@ -92,8 +106,13 @@ class LoginScreen extends Component {
               height: '30%'
             }}
           >
-            <Button full rounded success>
-              <Text>Success</Text>
+            <Button
+              full
+              rounded
+              success
+              onPress={() => this.props.navigation.navigate('home')}
+            >
+              <Text>Sign In</Text>
             </Button>
             <Button
               transparent
