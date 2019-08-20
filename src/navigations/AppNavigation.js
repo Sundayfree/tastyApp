@@ -11,20 +11,55 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LikeScreen from '../screens/LikeScreen';
+import WebScreen from '../screens/WebScreen';
 
-const BottomNavigator = createBottomTabNavigator(
+const HomeNavigator = createStackNavigator(
   {
     Home: {
       screen: HomeScreen,
+      navigationOptions: () => ({
+        header: null
+      })
+    },
+    Web: {
+      screen: WebScreen,
+      navigationOptions: ({ navigation }) => {
+        const { sourceName } = navigation.state.params;
+
+        return {
+          title: sourceName
+        };
+      }
+    }
+  },
+  {
+    defaultNavigationOptions: () => ({
+      headerBackTitle: null,
+      headerTintColor: '#555',
+      headerTitleStyle: {
+        fontFamily: 'Georgia'
+      }
+    })
+  }
+);
+const BottomNavigator = createBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeNavigator,
       navigationOptions: {
+        title: 'Search',
         tabBarIcon: ({ tintColor, focused }) => {
           return focused ? (
-            <Icon name="home" type="FontAwesome" style={{ color: tintColor }} />
+            <Icon
+              name="search"
+              type="FontAwesome"
+              style={{ color: tintColor, fontSize: 27 }}
+            />
           ) : (
             <Icon
-              name="home"
-              type="AntDesign"
-              style={{ color: tintColor, fontSize: 30 }}
+              name="search-minus"
+              type="FontAwesome"
+              style={{ color: tintColor, fontSize: 27 }}
             />
           );
         }
@@ -33,6 +68,7 @@ const BottomNavigator = createBottomTabNavigator(
     Like: {
       screen: LikeScreen,
       navigationOptions: {
+        title: 'My Recipes',
         tabBarIcon: ({ tintColor, focused }) => {
           return focused ? (
             <Icon

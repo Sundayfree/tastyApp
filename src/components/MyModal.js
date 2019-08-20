@@ -10,7 +10,9 @@ import {
   View,
   Button,
   Label,
-  Thumbnail
+  Thumbnail,
+  Header,
+  Right
 } from 'native-base';
 
 class MyModal extends Component {
@@ -21,15 +23,8 @@ class MyModal extends Component {
         transparent={false}
         animationType={'fade'}
       >
-        <Content>
-          <View
-            style={{
-              flexDirection: 'row-reverse',
-              marginTop: '5%',
-              width: '96%',
-              zIndex: 2
-            }}
-          >
+        <Header style={{ backgroundColor: '#fff', borderBottomColor: '#fff' }}>
+          <Right>
             <Icon
               name="cross"
               type="Entypo"
@@ -38,7 +33,9 @@ class MyModal extends Component {
                 color: '#74b566'
               }}
             />
-          </View>
+          </Right>
+        </Header>
+        <Content>
           <View
             style={{
               alignItems: 'center',

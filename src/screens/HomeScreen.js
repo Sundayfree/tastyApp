@@ -23,14 +23,15 @@ class HomeScreen extends Component {
       isRefresh: false
     };
     this.contentViewScroll = this.contentViewScroll.bind(this);
+    this.cardOnClick = this.cardOnClick.bind(this);
   }
   componentDidMount() {
-    get('https://api.spoonacular.com/recipes/random?number=10').then(res => {
-      this.setState({
-        dataArr: res.recipes,
-        isLoading: true
-      });
-    });
+    // get('https://api.spoonacular.com/recipes/random?number=10').then(res => {
+    //   this.setState({
+    //     dataArr: res.recipes,
+    //     isLoading: true
+    //   });
+    // });
   }
   likeOnClick = e => {
     this.setState({
@@ -42,7 +43,7 @@ class HomeScreen extends Component {
 
     var contentSizeHeight = e.nativeEvent.contentSize.height;
     var originScrollHeight = e.nativeEvent.layoutMeasurement.height;
-    console.log(e.nativeEvent);
+
     if (offsetY + originScrollHeight >= contentSizeHeight) {
       const { dataArr } = this.state;
       this.setState({
@@ -53,6 +54,7 @@ class HomeScreen extends Component {
           isRefresh: false,
           dataArr: dataArr.concat(res.recipes)
         });
+        console.log(res.recipes);
       });
     }
   }
@@ -69,6 +71,8 @@ class HomeScreen extends Component {
             sourceUrl={v.sourceUrl}
             like={this.likeOnClick}
             isLike={this.state.isLike}
+            imgClick={this.cardOnClick}
+            sourceName={v.sourceName}
           />
         );
       })
@@ -76,7 +80,9 @@ class HomeScreen extends Component {
       <Spinner color="green" />
     );
   };
-
+  cardOnClick(e) {
+    this.props.navigation.navigate('Web', e);
+  }
   render() {
     const { dataArr } = this.state;
     return (

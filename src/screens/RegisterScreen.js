@@ -62,7 +62,6 @@ class RegisterScreen extends Component {
             style={{
               marginTop: '6%',
               flexDirection: 'row',
-
               alignItems: 'baseline'
             }}
           >

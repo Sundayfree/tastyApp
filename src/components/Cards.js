@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import {
   Container,
   View,
@@ -14,17 +14,23 @@ import {
   Body,
   Right
 } from 'native-base';
+
 export default function Cards(props) {
-  const { image, title, id, sourceUrl } = props;
+  const { image, title, id, sourceUrl, sourceName } = props;
 
   return (
-    <Card style={{ backgroundColor: 'red', width: '86%' }}>
-      <CardItem cardBody>
+    <Card style={{ width: '86%' }}>
+      <CardItem
+        button
+        cardBody
+        onPress={() => props.imgClick({ sourceName, sourceUrl })}
+      >
         <Image
           source={{ uri: image }}
           style={{ height: 150, width: null, flex: 1 }}
         />
       </CardItem>
+
       <CardItem style={{ height: 40 }}>
         <Left>
           <Text>{title}</Text>

@@ -7,6 +7,8 @@ import {
   Icon,
   View,
   Button,
+  Header,
+  Right,
   CheckBox
 } from 'native-base';
 
@@ -28,20 +30,65 @@ class LikeScreen extends Component {
   render() {
     return (
       <Container>
+        <Header style={{ backgroundColor: '#fff', borderBottomColor: '#fff' }}>
+          <Right>
+            <Icon
+              name="gear"
+              type="FontAwesome"
+              style={{
+                fontSize: 33,
+                color: '#74b566'
+              }}
+              onPress={() => this.setState({ isVisible: true })}
+            />
+          </Right>
+        </Header>
+
         <Content>
-          <Icon
-            name="gear"
-            type="FontAwesome"
+          <View
             style={{
-              position: 'absolute',
-              right: '5%',
-              top: 15,
-              fontSize: 33,
-              color: '#74b566'
+              width: '100%',
+              height: 150,
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
-            onPress={() => this.setState({ isVisible: true })}
-          />
-          <Text>Like</Text>
+          >
+            <Text
+              style={{
+                fontSize: 30,
+                fontWeight: 'bold',
+                color: '#333',
+                fontFamily: 'times'
+              }}
+            >
+              Username
+            </Text>
+          </View>
+          <View
+            style={{
+              alignItems: 'center'
+            }}
+          >
+            <View
+              style={{
+                width: '80%',
+                height: 300,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: 300,
+
+                  color: '#f54275'
+                }}
+              >
+                Like Recipes to Save them for laters
+              </Text>
+            </View>
+          </View>
         </Content>
         <MyModal
           visible={this.state.isVisible}
