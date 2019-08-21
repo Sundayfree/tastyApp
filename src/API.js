@@ -1,5 +1,5 @@
 export function get(url = '') {
-  return fetch(`${url}&apiKey=498ceea7d15b4972af1a65502127dd96`).then(res =>
+  return fetch(`${url}&apiKey=03754b53c557467aa02dd548c2a074bd`).then(res =>
     res.json()
   );
 }

@@ -51,13 +51,13 @@ const BottomNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor, focused }) => {
           return focused ? (
             <Icon
-              name="search"
+              name="search-plus"
               type="FontAwesome"
               style={{ color: tintColor, fontSize: 27 }}
             />
           ) : (
             <Icon
-              name="search-minus"
+              name="search"
               type="FontAwesome"
               style={{ color: tintColor, fontSize: 27 }}
             />
