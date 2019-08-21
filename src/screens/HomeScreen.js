@@ -25,7 +25,8 @@ class HomeScreen extends Component {
       image: '',
       title: '',
       Id: '',
-      likeArr: []
+      likeArr: [],
+      isOk: true
     };
 
     this.contentViewScroll = this.contentViewScroll.bind(this);
@@ -34,8 +35,23 @@ class HomeScreen extends Component {
     this.searchHandler = this.searchHandler.bind(this);
   }
   searchHandler(e) {
-    console.log(e);
-    console.log('11111');
+    const query = e.nativeEvent.text;
+    get(
+      'https://api.spoonacular.com/recipes/findByIngredients?ingredients=' +
+        query
+    ).then(res => {
+      console.log(res);
+      if (Object.values(res).length == 0) {
+        this.setState({
+          isOk: false
+        });
+      } else {
+        this.setState({
+          dataArr: res,
+          isOk: true
+        });
+      }
+    });
   }
   componentDidMount() {
     get('https://api.spoonacular.com/recipes/random?number=10').then(res => {
@@ -75,15 +91,16 @@ class HomeScreen extends Component {
 
     if (offsetY + originScrollHeight >= contentSizeHeight) {
       const { dataArr } = this.state;
+
       this.setState({
-        isRefresh: true
+        isRefresh: true,
+        isOk: true
       });
       get('https://api.spoonacular.com/recipes/random?number=10').then(res => {
         this.setState({
           isRefresh: false,
           dataArr: dataArr.concat(res.recipes)
         });
-        console.log(res.recipes);
       });
     }
   }
@@ -133,13 +150,26 @@ class HomeScreen extends Component {
           </Item>
         </View>
         <Content
-          style={{ flex: 1 }}
           onMomentumScrollEnd={this.contentViewScroll}
           automaticallyAdjustContentInsets={false}
           showsVerticalScrollIndicator={false}
         >
-          <View style={{ marginTop: '5%', alignItems: 'center' }}>
-            {this.renderData()}
+          <View
+            style={{
+              marginTop: '5%',
+              alignItems: 'center'
+            }}
+          >
+            {this.state.isOk ? (
+              this.renderData()
+            ) : (
+              <Text
+                style={{ color: '#74b566', fontSize: 23, fontWeight: 'bold' }}
+              >
+                {' '}
+                Sorry! We cannot find any that match this search{' '}
+              </Text>
+            )}
           </View>
           {this.state.isRefresh ? <Spinner color="green" /> : null}
         </Content>

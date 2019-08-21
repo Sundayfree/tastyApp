@@ -10,7 +10,7 @@ function WebScreen(props) {
     //
     // )}
     <WebView
-      source={{ uri: sourceUrl }}
+      source={{ uri: sourceUrl || 'https://spoonacular.com' }}
       startInLoadingState={true}
       renderLoading={() => <Spinner color="green" />}
     />

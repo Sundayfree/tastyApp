@@ -47,7 +47,6 @@ class LikeScreen extends Component {
 
   componentWillUnmount() {
     this.focusListener.remove();
-    //AsyncStorage.removeItem('key');
   }
 
   renderData() {
