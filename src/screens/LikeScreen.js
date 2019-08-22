@@ -18,13 +18,13 @@ import {
 import { NavigationEvents, withNavigationFocus } from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import MyModal from '../components/MyModal';
-
 class LikeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isVisible: false,
-      arr: []
+      arr: [],
+      username: ''
     };
     this.closeModal = this.closeModal.bind(this);
     this.renderData = this.renderData.bind(this);
@@ -41,6 +41,11 @@ class LikeScreen extends Component {
         this.setState({
           arr: JSON.parse(res)
         });
+      });
+    });
+    AsyncStorage.getItem('u').then(u => {
+      this.setState({
+        username: JSON.parse(u).username
       });
     });
   }
@@ -113,7 +118,7 @@ class LikeScreen extends Component {
                   fontFamily: 'times'
                 }}
               >
-                Username
+                {this.state.username}
               </Text>
             </View>
             <View

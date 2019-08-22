@@ -12,7 +12,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LikeScreen from '../screens/LikeScreen';
 import WebScreen from '../screens/WebScreen';
-
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 const HomeNavigator = createStackNavigator(
   {
     Home: {
@@ -27,7 +27,7 @@ const HomeNavigator = createStackNavigator(
         const { sourceName } = navigation.state.params;
 
         return {
-          title: sourceName
+          title: sourceName || 'spoonacular'
         };
       }
     }
@@ -133,11 +133,12 @@ const StackNavigator = createStackNavigator(
 export default createAppContainer(
   createSwitchNavigator(
     {
+      auth: AuthLoadingScreen,
       user: StackNavigator,
       home: BottomNavigator
     },
     {
-      initialRouteName: 'user'
+      initialRouteName: 'auth'
     }
   )
 );

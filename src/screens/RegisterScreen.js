@@ -15,6 +15,8 @@ import {
   CheckBox
 } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
+import AsyncStorage from '@react-native-community/async-storage';
+
 class RegisterScreen extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +30,15 @@ class RegisterScreen extends Component {
       repassword: ''
     };
     this.handleImagePicker = this.handleImagePicker.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+  submitHandler() {
+    const { username, email, avator, password } = this.state;
+    AsyncStorage.setItem(
+      'u',
+      JSON.stringify({ username, email, avator, password })
+    );
+    this.props.navigation.navigate('home');
   }
   handleImagePicker() {
     const options = {
@@ -85,7 +96,7 @@ class RegisterScreen extends Component {
               </Button>
             </View>
           </View>
-          <View style={{ marginTop: '2%' }}>
+          <View style={{ marginTop: '3%' }}>
             <Item
               floatingLabel
               style={{
@@ -144,7 +155,7 @@ class RegisterScreen extends Component {
             </Button>
           </View>
           <View style={{ width: '90%', alignItems: 'center', marginTop: '8%' }}>
-            <Button full rounded success>
+            <Button full rounded success onPress={this.submitHandler}>
               <Text>Submit</Text>
             </Button>
           </View>
