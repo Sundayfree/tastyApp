@@ -29,6 +29,7 @@ class MyModal extends Component {
   }
   logout() {
     AsyncStorage.removeItem('key');
+    AsyncStorage.removeItem('u');
     this.props.navigation.navigate('user');
   }
   focus() {

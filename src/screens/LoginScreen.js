@@ -25,7 +25,7 @@ class LoginScreen extends Component {
     this.login = this.login.bind(this);
   }
   async login() {
-    console.log('1111');
+
 
     const user = await AsyncStorage.getItem('u');
     if (user) {
