@@ -39,7 +39,7 @@ class LikeScreen extends Component {
     this.focusListener = navigation.addListener('didFocus', () => {
       AsyncStorage.getItem('key').then(res => {
         this.setState({
-          arr: JSON.parse(res)
+          arr: JSON.parse(res)||[]
         });
       });
     });

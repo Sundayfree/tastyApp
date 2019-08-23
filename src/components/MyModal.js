@@ -25,6 +25,11 @@ class MyModal extends Component {
       showTxt: 'Logout'
     };
     this.focus = this.focus.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+  logout() {
+    AsyncStorage.removeItem('key');
+    this.props.navigation.navigate('user');
   }
   focus() {
     this.setState({
@@ -111,7 +116,7 @@ class MyModal extends Component {
                 rounded
                 danger
                 style={{ alignItems: 'center' }}
-                onPress={() => this.props.navigation.navigate('user')}
+                onPress={this.logout}
               >
                 <Text style={{ color: '#fff' }}>{showTxt}</Text>
               </Button>
